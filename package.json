@@ -1,0 +1,32 @@
+{
+  "name": "learning_gulp",
+  "version": "1.0.0",
+  "description": "Website built with gulp processor",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "npm install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/carloshmarques/learning_gulp.git"
+  },
+  "keywords": [
+    "gulp",
+    "browsersync",
+    "webpages",
+    "learning",
+    "sass"
+  ],
+  "author": "Hydra Projects",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/carloshmarques/learning_gulp/issues"
+  },
+  "homepage": "https://github.com/carloshmarques/learning_gulp#readme",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-if": "^3.0.0",
+    "gulp-uglify": "^3.0.2"
+  }
+}
