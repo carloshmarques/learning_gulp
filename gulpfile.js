@@ -108,7 +108,6 @@ function images(cb){
   .pipe(plumber())
   .pipe(gulp.dest(outputDir + 'img'))
 
-
   cb();
 };
 
