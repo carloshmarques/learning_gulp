@@ -10,6 +10,9 @@ const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
+const jshint = require('gulp-jshint');
+
+
 
 /*
 * Add your variables here
@@ -38,6 +41,16 @@ function js(cb) {
 
    cb();      
 };
+
+function js_hint(cb) {
+  gulp
+  .src(inputDir + 'js/**/**/*.js')
+  .pipe(plumber())
+  .pipe(jshint())
+  .pipe(jshint.reporter('default'))
+
+  cb();
+}
 
 
 
@@ -89,11 +102,12 @@ function watch(cb) {
 // exports here
 
 exports.default = series(
-  watch
+  watch, js_hint
 )
 exports.js = js
 exports.watch = watch
 exports.styles= styles
+exports.js_hint =js_hint
 
 /* default task
 keep function defaultTask empty, add your tasks in the exports.default code block
