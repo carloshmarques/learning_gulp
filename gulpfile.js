@@ -11,6 +11,7 @@ const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 const jshint = require('gulp-jshint');
+const modernizr = require('gulp-modernizr');
 
 
 
@@ -36,7 +37,7 @@ function js(cb) {
   gulp
   .src(inputDir + 'js/main.js')
   .pipe(browserify({debug: env === 'development' }))
-  .pipe(gulpif(env === 'production', uglify()))
+  .pipe(gulpif(env === 'production', uglify()))  
   .pipe(gulp.dest(outputDir + '/js'));
 
    cb();      
@@ -52,6 +53,27 @@ function js_hint(cb) {
   cb();
 }
 
+ function modernizer(cb){
+
+  gulp
+  .src(inputDir + 'js/modernizr.js')
+  .pipe(browserify({debug: env === 'development' }))
+ // .pipe(gulpif(env === 'production', uglify())) 
+  .pipe(modernizr({
+    'options': ['setClasses'],
+    'tests': [
+      'webworkers',
+      [
+        'cssgrid',
+        'cssgridlegacy'
+      ]
+    ],
+    excludeTests: ['csstransforms3d']
+    })) 
+  .pipe(gulpif(env === 'production', uglify())) 
+  .pipe(gulp.dest(outputDir + 'js'))
+  cb();
+};
 
 
 /// CSS tasks here
@@ -108,6 +130,8 @@ exports.js = js
 exports.watch = watch
 exports.styles= styles
 exports.js_hint =js_hint
+exports.modernizer = modernizer
+
 
 /* default task
 keep function defaultTask empty, add your tasks in the exports.default code block
