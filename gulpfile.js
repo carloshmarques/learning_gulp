@@ -12,7 +12,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 const jshint = require('gulp-jshint');
 const modernizr = require('gulp-modernizr');
-const imagemin = import('gulp-imagemin');
+//const imagemin = import('gulp-imagemin');
+const imageop = require('gulp-image-optimization');
 const cache = require('gulp-cache');
 
 
@@ -102,15 +103,20 @@ function styles(cb) {
 };
 
 function images(cb){
-
   gulp
   .src(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)')
-  .pipe(plumber())
-  .pipe(gulp.dest(outputDir + 'img'))
+  
+  .pipe(gulp.dest(outputDir + 'img'));
 
   cb();
 };
 
+/* function fonts(cb){
+falta codificar esta função e tenho de decidir se uso gulp jade ou pug
+
+  cb{};
+};
+*/
 
 
 
