@@ -22,7 +22,7 @@
   "bugs": {
     "url": "https://github.com/carloshmarques/learning_gulp/issues"
   },
-  "homepage": "https://github.com/carloshmarques/learning_gulp/index.html",
+  "homepage": "https://github.com/carloshmarques/learning_gulp/blob/gh-pages/README.md",
   "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-browserify": "^0.5.1",
