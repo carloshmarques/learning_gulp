@@ -12,7 +12,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 const jshint = require('gulp-jshint');
 const modernizr = require('gulp-modernizr');
-
+const imagemin = import('gulp-imagemin');
+const cache = require('gulp-cache');
 
 
 /*
@@ -100,6 +101,19 @@ function styles(cb) {
   cb(); 
 };
 
+function images(cb){
+
+  gulp
+  .src(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)')
+  .pipe(plumber())
+  .pipe(gulp.dest(outputDir + 'img'))
+
+
+  cb();
+};
+
+
+
 
 /// Watch tasks here
 function watch(cb) {
@@ -110,8 +124,12 @@ function watch(cb) {
 
     });
 
-  gulp.watch(inputDir + 'js/**/*.js', js).on('change', browserSync.reload);
+  gulp.watch(inputDir + 'js/**/main.js', js).on('change', browserSync.reload);
+  gulp.watch(inputDir + 'js/**/modernizr.js', modernizer).on('change', browserSync.reload);
+  gulp.watch(inputDir + 'js/**/**/*.js', js_hint).on('change', browserSync.reload);
   gulp.watch(inputDir + 'sass/**/*.scss', styles).on('change', browserSync.reload);
+  gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', images).on('change', browserSync.reload);
+  //gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
   gulp.watch(outputDir + '*.html').on('change', browserSync.reload);
   //gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', ['images']);
   // gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
@@ -124,13 +142,14 @@ function watch(cb) {
 // exports here
 
 exports.default = series(
-  watch, js_hint
+  watch
 )
 exports.js = js
 exports.watch = watch
 exports.styles= styles
 exports.js_hint =js_hint
 exports.modernizer = modernizer
+exports.images = images
 
 
 /* default task
