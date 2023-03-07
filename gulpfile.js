@@ -9,6 +9,7 @@ const gulpif = require('gulp-if');
 const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
 const sourcemaps = require('gulp-sourcemaps');
+const browserSync = require('browser-sync').create();
 
 /*
 * Add your variables here
@@ -67,14 +68,23 @@ function styles(cb) {
 
 /// Watch tasks here
 function watch(cb) {
-  gulp.watch(inputDir + 'js/**/*.js', js);
-  gulp.watch(inputDir + 'sass/**/*.scss', styles);
-  // gulp.watch(inputDir + 'sass/**/**/*.scss', ['sass']);
+
+  browserSync.init({
+
+    server: outputDir
+
+    });
+
+  gulp.watch(inputDir + 'js/**/*.js', js).on('change', browserSync.reload);
+  gulp.watch(inputDir + 'sass/**/*.scss', styles).on('change', browserSync.reload);
+  gulp.watch(outputDir + '*.html').on('change', browserSync.reload);
   //gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', ['images']);
   // gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
 
   cb();
 };
+
+
 
 // exports here
 
