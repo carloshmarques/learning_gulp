@@ -8,7 +8,7 @@ const uglify = require('gulp-uglify');
 const gulpif = require('gulp-if');
 const sass = require('gulp-sass')(require('sass'));
 const plumber = require('gulp-plumber');
-
+const sourcemaps = require('gulp-sourcemaps');
 
 /*
 * Add your variables here
@@ -54,8 +54,11 @@ function styles(cb) {
     }
      gulp
      .src(inputDir + 'sass/main.scss')
+     .pipe(sourcemaps.init({loadMaps: true}))
+     .pipe(sourcemaps.init({largeFile: true}))
      .pipe(plumber())
      .pipe(sass(config))
+     .pipe(sourcemaps.write())
      .pipe(gulp.dest(outputDir + 'css'))
 
   cb(); 
@@ -65,6 +68,7 @@ function styles(cb) {
 /// Watch tasks here
 function watch(cb) {
   gulp.watch(inputDir + 'js/**/*.js', js);
+  gulp.watch(inputDir + 'sass/**/*.scss', styles);
   // gulp.watch(inputDir + 'sass/**/**/*.scss', ['sass']);
   //gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', ['images']);
   // gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
@@ -75,7 +79,7 @@ function watch(cb) {
 // exports here
 
 exports.default = series(
-  watch, styles
+  watch
 )
 exports.js = js
 exports.watch = watch
