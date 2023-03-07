@@ -6,7 +6,8 @@ const gulp = require('gulp');
 const browserify = require('gulp-browserify');
 const uglify = require('gulp-uglify');
 const gulpif = require('gulp-if');
-
+const sass = require('gulp-sass')(require('sass'));
+const plumber = require('gulp-plumber');
 
 
 /*
@@ -26,6 +27,7 @@ var env = process.env.NODE_ENV || 'development';
 
 /// Create your functions here
 
+/// javascript
 function js(cb) {
   gulp
   .src(inputDir + 'js/main.js')
@@ -37,6 +39,30 @@ function js(cb) {
 };
 
 
+
+/// CSS tasks here
+
+
+function styles(cb) {
+  
+  var config = {};
+  if (env === 'development') {
+  config.sourceComments = 'map';
+  }
+  if (env === 'production') {
+    config.outputStyle = 'compressed';
+    }
+     gulp
+     .src(inputDir + 'sass/main.scss')
+     .pipe(plumber())
+     .pipe(sass(config))
+     .pipe(gulp.dest(outputDir + 'css'))
+
+  cb(); 
+};
+
+
+/// Watch tasks here
 function watch(cb) {
   gulp.watch(inputDir + 'js/**/*.js', js);
   // gulp.watch(inputDir + 'sass/**/**/*.scss', ['sass']);
@@ -49,14 +75,20 @@ function watch(cb) {
 // exports here
 
 exports.default = series(
-  watch, js
+  watch, styles
 )
 exports.js = js
 exports.watch = watch
+exports.styles= styles
 
+/* default task
+keep function defaultTask empty, add your tasks in the exports.default code block
+ex: exports.default(
+  watch, styles, & whatever tasks you want to be fired up by default
+)
+*/
 
- function defaultTask(cb) { 
-  
-       
+ function defaultTask(cb) {   
+
    cb();
 }
