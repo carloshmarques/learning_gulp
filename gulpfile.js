@@ -13,8 +13,8 @@ const browserSync = require('browser-sync').create();
 const jshint = require('gulp-jshint');
 const modernizr = require('gulp-modernizr');
 const imagemin = require('gulp-imagemin');
-//const imageop = require('gulp-image-optimization');
 const cache = require('gulp-cache');
+
 
 
 /*
@@ -60,7 +60,7 @@ function js_hint(cb) {
   gulp
   .src(inputDir + 'js/modernizr.js')
   .pipe(browserify({debug: env === 'development' }))
- // .pipe(gulpif(env === 'production', uglify())) 
+  .pipe(gulpif(env === 'production', uglify())) 
   .pipe(modernizr({
     'options': ['setClasses'],
     'tests': [
@@ -115,12 +115,7 @@ function images(cb){
   cb();
 };
 
-/* function fonts(cb){
-falta codificar esta função e tenho de decidir se uso gulp jade ou pug
 
-  cb{};
-};
-*/
 
 
 
@@ -138,7 +133,6 @@ function watch(cb) {
   gulp.watch(inputDir + 'js/**/**/*.js', js_hint).on('change', browserSync.reload);
   gulp.watch(inputDir + 'sass/**/*.scss', styles).on('change', browserSync.reload);
   gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', images).on('change', browserSync.reload);
-  //gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
   gulp.watch(outputDir + '*.html').on('change', browserSync.reload);
   //gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', ['images']);
   // gulp.watch(inputDir + 'fonts/**/**/*', ['fonts']);
@@ -159,6 +153,7 @@ exports.styles= styles
 exports.js_hint =js_hint
 exports.modernizer = modernizer
 exports.images = images
+
 
 
 /* default task
