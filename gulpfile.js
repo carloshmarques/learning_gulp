@@ -27,7 +27,7 @@ var outputDir = "./";
 var inputDir = "./build/";
 /*
  * by default gulp task are set to a development mode as seen on the line var env = process.env.NODE_ENV || 'development';
- * to run tasks in a production mode, type in terminal NODE_ENV=production and task ex: NODE_ENV= production gulp js
+ * to run tasks in a production mode, type in terminal NODE_ENV=production and task ex: NODE_ENV=production gulp js
  *
  */
 var env = process.env.NODE_ENV || 'development';
@@ -130,7 +130,7 @@ function watch(cb) {
 
   gulp.watch(inputDir + 'js/**/main.js', js).on('change', browserSync.reload);
   gulp.watch(inputDir + 'js/**/modernizr.js', modernizer).on('change', browserSync.reload);
-  gulp.watch(inputDir + 'js/**/**/*.js', js_hint).on('change', browserSync.reload);
+ // gulp.watch(inputDir + 'js/**/**/*.js', js_hint).on('change', browserSync.reload);
   gulp.watch(inputDir + 'sass/**/*.scss', styles).on('change', browserSync.reload);
   gulp.watch(inputDir + 'images/**/**/*.+(png|jpg|jpeg|gif|svg|ico)', images).on('change', browserSync.reload);
   gulp.watch(outputDir + '*.html').on('change', browserSync.reload);

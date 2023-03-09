@@ -192,3 +192,4 @@ ModelManifest.xml
 node_modules/
 bower_components
 _site
+package-lock.json
